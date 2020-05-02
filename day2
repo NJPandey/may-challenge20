@@ -1,0 +1,16 @@
+class Solution {
+    public int numJewelsInStones(String J, String S) {
+        int i = 0, ans = 0;
+        if(J.length() == 0 || S.length() == 0)
+            return 0;
+        int []freq = new int[256];
+        for(i = 0; i < S.length(); ++i) {
+            freq[S.charAt(i)-'A']++;
+        }
+        for(i = 0; i < J.length(); ++i) {
+            ans += freq[J.charAt(i)-'A'];
+        }
+        return ans;
+    }
+}
+//
