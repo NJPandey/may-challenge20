@@ -1,0 +1,30 @@
+class Solution {
+    public int findJudge(int N, int[][] trust) {
+        LinkedList<Integer>[] g = new LinkedList[N+1];
+        int n = trust.length, ans = 0, cnt = 0;
+        for(int i = 0; i <= N; i++)
+            g[i] = new LinkedList<Integer>();
+        for(int i = 0; i < n; i++) {
+            g[trust[i][0]].add(trust[i][1]);
+        }
+        for(int i = 1; i <= N; i++) {
+            if(g[i].size() == 0) {
+                ans = i;
+                cnt++;
+            }
+        }
+        if(cnt != 1)
+            return -1;
+       for(int j = 1; j <= N && j != ans; ++j) {
+             LinkedList<Integer> nbr = g[j];
+             boolean flag = false;
+             for(int i = 0; i < nbr.size(); i++) {
+                 if(nbr.get(i) == ans)
+                     flag = true;
+             }
+             if(flag == false)
+               return -1;
+       }
+       return ans;
+    }
+}
