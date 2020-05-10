@@ -1,0 +1,17 @@
+class Solution {
+    public boolean isPerfectSquare(int num) {
+        if(num == 0) return false;
+        int st = 1, en = num;
+        double nm = (double)num;
+        while(st <= en) {
+            double mid = st+(en-st)/2;
+            if(mid*mid == nm)
+                return true;
+            else if(mid*mid > nm) 
+                en = (int)mid-1;
+            else
+                st = (int)mid+1;
+        }
+        return false;
+    }
+}
