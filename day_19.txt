@@ -1,0 +1,36 @@
+class StockSpanner {
+    List<Integer> list;
+    Stack<Integer> st;
+    public StockSpanner() {
+        list = new ArrayList<>();
+        st = new Stack<>();
+    }
+    
+    public int next(int price) {
+        list.add(price);
+        int n = list.size(), ans = 1;
+        if(st.size() == 0) {
+            st.push(n-1);
+            return ans;
+        } 
+        if(list.get(st.peek()) > price) {
+            st.push(n-1);
+            ans = 1;
+        } else {
+            while(!st.isEmpty() && list.get(st.peek()) <= price) 
+                st.pop();
+            if(st.isEmpty())
+                ans = n;
+            else
+                ans = n-st.peek()-1;
+            st.push(n-1);
+        }
+        return ans;
+    }
+}
+
+/**
+ * Your StockSpanner object will be instantiated and called as such:
+ * StockSpanner obj = new StockSpanner();
+ * int param_1 = obj.next(price);
+ */
