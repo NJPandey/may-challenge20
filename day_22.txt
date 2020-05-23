@@ -1,0 +1,31 @@
+class Solution {
+    class pair implements Comparable<pair> {
+        char c;
+        int freq;
+        pair(char c, int freq) {
+            this.c = c;
+            this.freq = freq;
+        }
+        public int compareTo(pair a) {
+            if(a.freq != this.freq)
+                return a.freq - this.freq;
+            else
+                return this.c-a.c;
+        }
+    }
+    public String frequencySort(String s) {
+        int n = s.length();
+        String ans = "";
+        int[] f = new int[128];
+        for(char c : s.toCharArray())
+            f[c]++;
+        pair[] arr = new pair[n];
+        for(int i = 0; i < n; ++i) {
+           arr[i] = new pair(s.charAt(i), f[s.charAt(i)]); 
+        }
+        Arrays.sort(arr);
+        for(pair p : arr)
+            ans += p.c;
+        return ans;
+    }
+}
