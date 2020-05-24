@@ -1,0 +1,48 @@
+class Solution {
+    public int[][] intervalIntersection(int[][] A, int[][] B) {
+        int n = A.length, m = B.length, i = 0, j = 0;
+        int[] curA = new int[2];
+        int[] curB = new int[2];
+        ArrayList<Integer> l = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+        while(i < n && j < m) {
+           curA = A[i];
+           curB = B[j];
+           l = new ArrayList<Integer>();
+           if(curA[1] < curB[0]) 
+               i++;
+           else if(curA[0] > curB[1]) 
+               j++;
+           else if(curB[0] >= curA[0] && curB[1] <= curA[1]) {
+               l.add(curB[0]);
+               l.add(curB[1]);
+               j++;
+               list.add(l);
+           }
+           else if(curA[0] >= curB[0] && curA[1] <= curB[1]) {
+               l.add(curA[0]);
+               l.add(curA[1]);
+               i++;
+               list.add(l);
+           }
+           else if(curA[0] <= curB[0] && curA[1] <= curB[1]) {
+               l.add(curB[0]);
+               l.add(curA[1]);
+               i++;
+               list.add(l);
+           }
+           else if(curB[0] <= curA[0] && curB[1] <= curA[1]) {
+               l.add(curA[0]);
+               l.add(curB[1]);
+               j++;
+               list.add(l);
+           }
+        }
+        int[][] res = new int[list.size()][2];
+        for(i = 0; i < list.size(); i++) {
+            res[i][0] = list.get(i).get(0);
+            res[i][1] = list.get(i).get(1);
+        }
+        return res;
+    }
+}
